@@ -13,6 +13,12 @@ spring:
       username: root
       password: minqiliang026415
 
+  # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 15
+
 # mybatis-plus配置
 mybatis-plus:
   configuration:
