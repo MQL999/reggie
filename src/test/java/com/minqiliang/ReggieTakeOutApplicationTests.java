@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ReggieTakeOutApplicationTests {
 
     @Test
-    void contextLoads() {
+    void contextLoads() throws Exception {
         // 播放语音提示
         AudioUtils.play("D:\\图片\\reggie\\audio\\reggie.mp3");
     }
