@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.minqiliang.common.R;
 import com.minqiliang.dto.DishDto;
-import com.minqiliang.dto.SetmealDto;
 import com.minqiliang.entity.Category;
 import com.minqiliang.entity.Dish;
 import com.minqiliang.entity.DishFlavor;
@@ -156,6 +155,13 @@ public class DishController {
     public R<String> removeBYId(@RequestParam List<Long> ids) {
         log.info(ids.toString());
         dishService.removeByIdWithFlavor(ids);
+        // 清理缓存
+        ids.forEach(id->{
+            Dish dish = dishService.getById(id);
+            Long categoryId = dish.getCategoryId();
+            String key = "dish_" + categoryId + "_1";
+            redisTemplate.delete(key);
+        });
         return R.success("删除成功");
     }
 
