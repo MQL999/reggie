@@ -7,6 +7,8 @@ import com.minqiliang.entity.Category;
 import com.minqiliang.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class CategoryController {
      * @return
      */
     @PostMapping
+    @CacheEvict(value = "category",allEntries = true)
     public R<String> save(@RequestBody Category category){
         boolean save = categoryService.save(category);
         if (save){
@@ -51,6 +54,7 @@ public class CategoryController {
      * @return
      */
     @DeleteMapping
+    @CacheEvict(value = "category",allEntries = true)
     public R<String> deleteById(Long ids){
         categoryService.remove(ids);
         return R.success("删除成功");
@@ -62,6 +66,7 @@ public class CategoryController {
      * @return
      */
     @PutMapping
+    @CacheEvict(value = "category",allEntries = true)
     public R<String> update(@RequestBody Category category){
         categoryService.updateById(category);
         return R.success("修改成功！");
@@ -69,6 +74,7 @@ public class CategoryController {
 
 
     @GetMapping("/list")
+    @Cacheable(value = "category",key = "'category'",unless = "#category.type != null")
     public R<List<Category>> list(Category category){
         // 条件构造器
         LambdaQueryWrapper<Category> lambdaQueryWrapper = new LambdaQueryWrapper<>();

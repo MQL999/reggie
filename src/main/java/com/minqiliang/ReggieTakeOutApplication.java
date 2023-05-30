@@ -4,12 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Slf4j // 日志注解
 @SpringBootApplication
 @ServletComponentScan // 扫描Servlet组件
 @EnableTransactionManagement
+@EnableCaching // 开启spring cache
 public class ReggieTakeOutApplication {
 
     public static void main(String[] args) {
