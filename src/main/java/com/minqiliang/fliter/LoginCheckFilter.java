@@ -18,7 +18,8 @@ public class LoginCheckFilter implements Filter {
     public static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
         // 强制类型转换
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -62,11 +63,13 @@ public class LoginCheckFilter implements Filter {
 
     /**
      * 判断请求的url是否是登录，退出，静态资源
+     *
      * @param uri
      * @return
      */
     private boolean check(String uri) {
-        String[] urls = {"/employee/login", "/employee/logout", "/backend/**", "/front/**","/user/sendMsg","/user/login"};
+        String[] urls = {"/employee/login", "/employee/logout", "/backend/**", "/front/**", "/user/sendMsg",
+                "/user/login", "/doc.html", "/webjars/**", "/swagger-resources", "/v2/api-docs"};
         for (String url : urls) {
             if (PATH_MATCHER.match(url, uri)) {
                 return true;
